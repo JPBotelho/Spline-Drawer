@@ -8,6 +8,7 @@
 class ControlPoint
 {
 	public:
+		ControlPoint();
 		Tigr* context;
 		ControlPoint(int x, int y, int width, Tigr* context);
 		void Draw();
