@@ -116,11 +116,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ControlPoint.cpp" />
-    <ClCompile Include="hello.cpp" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="tigr.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ControlPoint.h" />
+    <ClInclude Include="Main.h" />
     <ClInclude Include="tigr.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

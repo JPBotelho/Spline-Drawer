@@ -7,20 +7,27 @@
 
 ControlPoint::ControlPoint()
 {
-
+	
 }
 
-ControlPoint::ControlPoint(int x, int y, int width, Tigr* context)
+ControlPoint::ControlPoint(float x, float y, float width, Tigr* context)
 {
 	this->x = x;
 	this->y = y;
 	this->width = width;
+	this->screenX = context->w;
+	this->screenY = context->h;
 	this->context = context;
+	//printf("%d", screenX);
 }
 
 void ControlPoint::Draw()
 {
-	tigrFill(context, x-width/2, y-width/2, width, width, tigrRGB(255, 0, 0));
+	//printf("%d\n", screenX);
+	int xPos = x * screenX;
+	int yPos = y * screenY;
+	int newWidth = width * screenY;
+	tigrFill(context, xPos- newWidth /2, yPos- newWidth /2, newWidth, newWidth, tigrRGB(255, 0, 0));
 }
 
 bool ControlPoint::Intersects(int cX, int cY)

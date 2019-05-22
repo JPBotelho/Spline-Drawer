@@ -10,8 +10,10 @@ class ControlPoint
 	public:
 		ControlPoint();
 		Tigr* context;
-		ControlPoint(int x, int y, int width, Tigr* context);
+		ControlPoint(float x, float y, float width, Tigr* context);
 		void Draw();
 		bool Intersects(int x, int y);
-		int x, y, width;
+		float x, y, width;
+		int screenX;
+		int screenY;	
 };
