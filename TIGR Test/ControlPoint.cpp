@@ -30,12 +30,12 @@ void ControlPoint::Draw()
 	tigrFill(context, xPos- newWidth /2, yPos- newWidth /2, newWidth, newWidth, tigrRGB(255, 0, 0));
 }
 
-bool ControlPoint::Intersects(int cX, int cY)
+bool ControlPoint::Intersects(float cX, float cY)
 {
-	int minX = x-width/2;
-	int maxX = x + width/2;
-	int minY = y-width/2;
-	int maxY = y + width/2;
+	float minX = x-width/2;
+	float maxX = x + width/2;
+	float minY = y-width/2;
+	float maxY = y + width/2;
 	bool intersects = (minX < cX && cX < maxX && minY < cY && cY < maxY);
 	printf(intersects == true ? "\nIntersects" : "\nNope");
 	return intersects;

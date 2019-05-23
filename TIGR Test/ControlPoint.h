@@ -12,7 +12,7 @@ class ControlPoint
 		Tigr* context;
 		ControlPoint(float x, float y, float width, Tigr* context);
 		void Draw();
-		bool Intersects(int x, int y);
+		bool Intersects(float x, float y);
 		float x, y, width;
 		int screenX;
 		int screenY;	

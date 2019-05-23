@@ -30,7 +30,7 @@ int startx, starty;
 int main(int argc, char *argv[])
 {
 	GetScreenRes();
-	screen = tigrWindow(320*3, 240*3, "Hello", 0);
+	screen = tigrWindow(100, 100, "Hello", 0);
 	ControlPoint* point = new ControlPoint(0.1f, .1f, .15f, screen);
 	ControlPoint* point1 = new ControlPoint(.1f, .5f, .15f, screen);
 	ControlPoint* point2 = new ControlPoint(.5f, .1f, .15f, screen);
@@ -55,8 +55,10 @@ int main(int argc, char *argv[])
 
 		if (dragging)
 		{
-			controlPoints[activeDrag]->x = cursorX;
-			controlPoints[activeDrag]->y = cursorY;
+			float scaledCursorX = (float)cursorX / screen->w;
+			float scaledCursorY = (float)cursorY / screen->h;
+			controlPoints[activeDrag]->x = scaledCursorX;
+			controlPoints[activeDrag]->y = scaledCursorY;
 		}
 		tigrClear(screen, tigrRGB(0x80, 0x90, 0xa0));
 		for (int i = 0; i < sizeof(controlPoints) / sizeof(controlPoints[0]); i++)
@@ -125,10 +127,10 @@ void DrawLines()
 	for (int i = 0; i < pointcount; i++)
 	{
 		int nextPoint = i != pointcount - 1 ? i + 1 : 0;
-		int x0 = controlPoints[i]->x;
-		int y0 = controlPoints[i]->y;
-		int x1 = controlPoints[nextPoint]->x;
-		int y1 = controlPoints[nextPoint]->y;
+		int x0 = controlPoints[i]->x*screen->w;
+		int y0 = controlPoints[i]->y*screen->h;
+		int x1 = controlPoints[nextPoint]->x*screen->w;
+		int y1 = controlPoints[nextPoint]->y*screen->h;
 
 		tigrLine(screen, x0, y0, x1, y1, tigrRGB(0, 255, 0));
 	}
