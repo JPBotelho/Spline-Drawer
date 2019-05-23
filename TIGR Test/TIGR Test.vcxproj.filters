@@ -18,10 +18,10 @@
     <ClCompile Include="tigr.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ControlPoint.cpp">
+    <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Main.cpp">
+    <ClCompile Include="DraggablePoint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,10 +29,13 @@
     <ClInclude Include="tigr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ControlPoint.h">
+    <ClInclude Include="Main.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Main.h">
+    <ClInclude Include="DraggablePoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CatmullRomPoint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

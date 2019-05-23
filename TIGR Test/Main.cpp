@@ -3,7 +3,7 @@
 #pragma comment(lib,"D3D9.lib")
 #endif
 
-#include "ControlPoint.h"
+#include "DraggablePoint.h"
 #include <stdio.h>
 #include "wtypes.h"
 #include <iostream>
@@ -22,8 +22,8 @@ bool mouseDownCurrFrame = 0;
 bool dragging;
 int cursorX, cursorY;
 
-ControlPoint* controlPoints[3];
-//Index of the controlPoint that's currently being dragged
+DraggablePoint* DraggablePoints[3];
+//Index of the DraggablePoint that's currently being dragged
 int activeDrag;
 int startx, starty;
 
@@ -31,13 +31,10 @@ int main(int argc, char *argv[])
 {
 	GetScreenRes();
 	screen = tigrWindow(100, 100, "Hello", 0);
-	ControlPoint* point = new ControlPoint(0.1f, .1f, .15f, screen);
-	ControlPoint* point1 = new ControlPoint(.1f, .5f, .15f, screen);
-	ControlPoint* point2 = new ControlPoint(.5f, .1f, .15f, screen);
 
-	controlPoints[0] = point;
-	controlPoints[1] = point1;
-	controlPoints[2] = point2;
+	DraggablePoints[0] = new DraggablePoint(0.1f, .1f, .15f, screen);
+	DraggablePoints[1] = new DraggablePoint(.1f, .5f, .15f, screen);
+	DraggablePoints[2] = new DraggablePoint(.5f, .1f, .15f, screen);
 
 	UpdateMouse();
 	while (!tigrClosed(screen) && !tigrKeyDown(screen, TK_ESCAPE))
@@ -57,15 +54,13 @@ int main(int argc, char *argv[])
 		{
 			float scaledCursorX = (float)cursorX / screen->w;
 			float scaledCursorY = (float)cursorY / screen->h;
-			controlPoints[activeDrag]->x = scaledCursorX;
-			controlPoints[activeDrag]->y = scaledCursorY;
+			DraggablePoints[activeDrag]->x = scaledCursorX;
+			DraggablePoints[activeDrag]->y = scaledCursorY;
 		}
-		tigrClear(screen, tigrRGB(0x80, 0x90, 0xa0));
-		for (int i = 0; i < sizeof(controlPoints) / sizeof(controlPoints[0]); i++)
-		{
-			controlPoints[i]->Draw();
-		}
+
+		tigrClear(screen, tigrRGB(0x80, 0x90, 0xa0));		
 		DrawLines();
+		DrawPoints();
 		tigrUpdate(screen);
 	}
 	tigrFree(screen);
@@ -100,11 +95,11 @@ void GetScreenRes()
 
 void GetPointAtCursor()
 {
-	for (int i = 0; i < sizeof(controlPoints) / sizeof(controlPoints[0]); i++)
+	for (int i = 0; i < sizeof(DraggablePoints) / sizeof(DraggablePoints[0]); i++)
 	{
 		float scaledCursorX = (float)cursorX / screen->w;
 		float scaledCursorY = (float)cursorY / screen->h;
-		if (controlPoints[i]->Intersects(scaledCursorX, scaledCursorY))
+		if (DraggablePoints[i]->Intersects(scaledCursorX, scaledCursorY))
 		{
 			activeDrag = i;
 			dragging = true;
@@ -123,15 +118,23 @@ void UpdateMouse()
 
 void DrawLines()
 {
-	int pointcount = sizeof(controlPoints) / sizeof(controlPoints[0]);
+	int pointcount = sizeof(DraggablePoints) / sizeof(DraggablePoints[0]);
 	for (int i = 0; i < pointcount; i++)
 	{
 		int nextPoint = i != pointcount - 1 ? i + 1 : 0;
-		int x0 = controlPoints[i]->x*screen->w;
-		int y0 = controlPoints[i]->y*screen->h;
-		int x1 = controlPoints[nextPoint]->x*screen->w;
-		int y1 = controlPoints[nextPoint]->y*screen->h;
+		int x0 = DraggablePoints[i]->x*screen->w;
+		int y0 = DraggablePoints[i]->y*screen->h;
+		int x1 = DraggablePoints[nextPoint]->x*screen->w;
+		int y1 = DraggablePoints[nextPoint]->y*screen->h;
 
 		tigrLine(screen, x0, y0, x1, y1, tigrRGB(0, 255, 0));
+	}
+}
+
+void DrawPoints()
+{
+	for (int i = 0; i < sizeof(DraggablePoints) / sizeof(DraggablePoints[0]); i++)
+	{
+		DraggablePoints[i]->Draw();
 	}
 }

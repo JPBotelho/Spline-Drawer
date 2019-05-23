@@ -1,16 +1,17 @@
+#include "DraggablePoint.h"
+
 #include "tigr.h"
 #ifdef _MSC_VER
 #pragma comment(lib,"D3D9.lib")
 #endif
-#include "ControlPoint.h"
 #include <stdio.h>
 
-ControlPoint::ControlPoint()
+DraggablePoint::DraggablePoint()
 {
 	
 }
 
-ControlPoint::ControlPoint(float x, float y, float width, Tigr* context)
+DraggablePoint::DraggablePoint(float x, float y, float width, Tigr* context)
 {
 	this->x = x;
 	this->y = y;
@@ -21,7 +22,7 @@ ControlPoint::ControlPoint(float x, float y, float width, Tigr* context)
 	//printf("%d", screenX);
 }
 
-void ControlPoint::Draw()
+void DraggablePoint::Draw()
 {
 	//printf("%d\n", screenX);
 	int xPos = x * screenX;
@@ -30,7 +31,7 @@ void ControlPoint::Draw()
 	tigrFill(context, xPos- newWidth /2, yPos- newWidth /2, newWidth, newWidth, tigrRGB(255, 0, 0));
 }
 
-bool ControlPoint::Intersects(float cX, float cY)
+bool DraggablePoint::Intersects(float cX, float cY)
 {
 	float minX = x-width/2;
 	float maxX = x + width/2;

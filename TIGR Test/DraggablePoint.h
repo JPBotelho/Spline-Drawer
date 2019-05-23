@@ -5,12 +5,12 @@
 #pragma comment(lib,"D3D9.lib")
 #endif
 
-class ControlPoint
+class DraggablePoint
 {
 	public:
-		ControlPoint();
+		DraggablePoint();
 		Tigr* context;
-		ControlPoint(float x, float y, float width, Tigr* context);
+		DraggablePoint(float x, float y, float width, Tigr* context);
 		void Draw();
 		bool Intersects(float x, float y);
 		float x, y, width;
